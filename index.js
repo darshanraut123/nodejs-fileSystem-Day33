@@ -9,7 +9,7 @@ const PORT = 3000;
 const app = express();
 
 //Base API to create the file and insert text as date timestamp
-app.get("/", (req, res) => {
+app.get("/add", (req, res) => {
   const date = new Date();
   let fileName =
     "./allfolders/" +
@@ -36,6 +36,13 @@ app.get("/", (req, res) => {
   });
   //Sending acknowledgement as an response
   res.send("File is created at ./allfolders");
+});
+
+//API to get all files which are created
+app.get("/",(req,res)=>{
+    let files = fs.readdirSync('./allfolders/');
+    files.forEach(file=>console.log(file));
+    res.send(files.map(file=>`${file}`));
 });
 
 //Starting the express server with message on console
